@@ -11,13 +11,13 @@ jobs:
       rc_version: ${{ steps.step1.outputs.rc_version }}
       output2: ${{ steps.step2.outputs.test }}
     steps:
-      - id: set-version
+      - id: set_version
         run: echo "::set-output name=rc_version::${VERSION}"
       - id: step2
         run: echo "::set-output name=test::world"
-      - run: echo "Hihi ${{steps.set-version.outputs.rc_version}}"
+      - run: echo "Hihi ${{steps.set_version.outputs.rc_version}}"
   job2:
     runs-on: ubuntu-latest
     needs: setup-version
     steps:
-      - run: echo ${{needs.setup-version.outputs.rc_version}} ${{needs.setup-version.outputs.output2}}
+      - run: echo ${{needs.setup_version.outputs.rc_version}} ${{needs.setup_version.outputs.output2}}
