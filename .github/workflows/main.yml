@@ -2,20 +2,22 @@ name: CI
 on: push
 
 jobs:
-  job1:
+  setup-version:
     runs-on: ubuntu-latest
     # Map a step output to a job output
+    env:
+      VERSION: 1.0.0.1
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
+      rc_version: ${{ steps.step1.outputs.rc_version }}
       output2: ${{ steps.step2.outputs.test }}
     steps:
       - id: step1
-        run: echo "::set-output name=test::hello"
+        run: echo "::set-output name=rc_version::${VERSION}"
       - id: step2
         run: echo "::set-output name=test::world"
       - run: echo "Hihi ${{steps.step1.outputs.test}}"
   job2:
     runs-on: ubuntu-latest
-    needs: job1
+    needs: setup-version
     steps:
-      - run: echo ${{needs.job1.outputs.output1}} ${{needs.job1.outputs.output2}}
+      - run: echo ${{needs.setup-version.outputs.rc_version}} ${{needs.setup-version.outputs.output2}}
