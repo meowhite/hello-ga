@@ -20,4 +20,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup-version
     steps:
-      - run: echo ${{needs.setup_version.outputs.rc_version}} ${{needs.setup_version.outputs.output2}}
+      - run: echo ${{needs.setup-version.outputs.rc_version}} ${{needs.setup-version.outputs.output2}}
